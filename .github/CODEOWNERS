@@ -1,0 +1,8 @@
+# Reviewers who are asked to approve changes to these paths.
+# Add teammates' GitHub usernames after the owner, separated by spaces.
+# Takes effect once "Require review from Code Owners" is turned on (see CONTRIBUTING.md).
+
+/skills/              @sashankgit13
+/templates/AGENTS.md  @sashankgit13
+/tools/               @sashankgit13
+/.github/             @sashankgit13

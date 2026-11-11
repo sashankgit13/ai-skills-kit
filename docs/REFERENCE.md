@@ -47,6 +47,9 @@ templates/AGENTS.md             10-line always-loaded guideline file that points
 tools/validate_skill.py         org checks: portability, secrets, injection, risky scripts
 tools/install.py                install / status / uninstall, with a lock file
 tools/setup.py                  guided setup behind the launchers (skills + optional settings)
+tools/build_catalog.py          builds SKILLS.md from the skill files (--check in CI)
+SKILLS.md                       generated list of every skill and always-on rule
+CONTRIBUTING.md                 how skills are proposed, written, reviewed and shared
 ai-skills-test/                 A/B test of the skills (fake fixture, harness, results)
 .github/workflows/              CI: org checks + official agentskills.io validator
 ```
@@ -187,7 +190,10 @@ Good practice (not enforced), drawn from the agentskills.io spec and Anthropic's
 - Tool-specific extras (Claude's `context: fork`, Codex's `agents/openai.yaml`) are optional
   and rejected by the validator by default; the skill must work without them.
 
-## Review process (suggested)
+## Review process
+
+The full workflow (proposal form, pull request checklist, CODEOWNERS, required checks) is in
+[CONTRIBUTING.md](../CONTRIBUTING.md). In short:
 
 - Require PR review for `skills/`, with a CODEOWNERS entry.
 - Read every script in a skill before merging; the validators catch careless mistakes only.

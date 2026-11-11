@@ -338,7 +338,8 @@ def install_skills(skills: list[str], tools: set[str], dry: bool) -> tuple[bool,
         targets.append("agents")
     if not targets:
         return True, []
-    argv = ["install", "--global", "--targets", ",".join(targets)]
+    # --update refreshes skills that changed in the kit; copies someone edited are still kept.
+    argv = ["install", "--global", "--update", "--targets", ",".join(targets)]
     for s in skills:
         argv += ["--skill", s]
     if dry:

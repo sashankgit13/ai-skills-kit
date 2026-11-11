@@ -1,9 +1,8 @@
 name: Validate skills
+# Runs on every pull request (no path filter), so it can be a required check without
+# blocking pull requests that only touch docs.
 on:
   pull_request:
-    paths:
-      - "skills/**"
-      - "tools/**"
   push:
     branches: [main]
 
@@ -27,3 +26,6 @@ jobs:
           # Pin the version you reviewed; bump deliberately.
           pip install "skills-ref==0.1.1"
           for d in skills/*/; do agentskills validate "$d"; done
+
+      - name: Skills catalog is up to date
+        run: python3 tools/build_catalog.py --check

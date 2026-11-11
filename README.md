@@ -1,6 +1,7 @@
 # Using AI Skills at Work: A Beginner's Guide
 
-> New to AI? You're in the right place. Developers and skill authors: see the
+> New to AI? You're in the right place. **All skills and rules:** [SKILLS.md](SKILLS.md).
+> **Adding a skill:** [CONTRIBUTING.md](CONTRIBUTING.md). **Developers:** the
 > [technical reference](docs/REFERENCE.md).
 
 ## At a glance
@@ -40,6 +41,8 @@ If you don't write code, you only need the first skill. The setup recommends the
 | [**disciplined-coding**](skills/disciplined-coding/SKILL.md) | People who write or review code | Makes small, focused changes. Writes a test to prove a bug is fixed. Leaves unrelated code alone and mentions it instead. |
 
 You don't need to call a skill by name. The AI picks up the rules on its own, and the `AGENTS.md` file makes sure the most important ones always apply.
+
+The full list of skills, their rules and the always-on rules is in **[SKILLS.md](SKILLS.md)**. It updates automatically whenever a skill is added or changed.
 
 ## Setting up (about five minutes)
 
@@ -96,6 +99,17 @@ The skills help, but you are still the one in charge. These habits matter with o
 5. **Check before you rely on it.** The AI can be confidently wrong. Check facts, numbers and recipients, especially for anything leaving the company.
 6. **You own the result.** The AI is a helper, not a sign-off. What you send or publish is your responsibility.
 
+## Adding new skills
+
+The kit grows as the team finds new needs. Every new or changed skill is reviewed by a teammate before anyone gets it.
+
+1. **Suggest it.** Anyone can: open the **Issues** tab, click **New issue**, and choose **Propose a skill**. A short form asks what keeps happening and what the AI should do instead. No coding needed.
+2. **Draft and test.** Someone writes the skill from the template and tries it with and without the skill.
+3. **Review.** The draft is opened as a pull request. Automatic checks run, and at least one teammate reviews it with a checklist (two for changes to the always-on rules).
+4. **Share.** Once approved, it appears in [SKILLS.md](SKILLS.md). To get it, run the setup again.
+
+Details for whoever writes or reviews a skill: [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Common questions
 
 **Do I have to use this?** No. The kit shares our team's guidelines; nothing is enforced. You can skip the optional settings and undo everything later.
@@ -110,13 +124,17 @@ The skills help, but you are still the one in charge. These habits matter with o
 
 **The setup window closed or showed an error.** Run it again; it's safe to repeat. If it mentions Python, ask IT to install Python 3.9 or newer. Otherwise, send a screenshot to the contact below.
 
-**Can I suggest a new skill?** Yes, please. If you keep giving the AI the same instructions, or it keeps making the same mistake, that's a good candidate.
+**Can I suggest a new skill?** Yes, please. If you keep giving the AI the same instructions, or it keeps making the same mistake, that's a good candidate. See [Adding new skills](#adding-new-skills).
+
+**How do I get new skills when they're added?** Download the kit again and re-run the setup. It adds new skills and refreshes changed ones, and leaves anything already up to date alone. If you edited a skill yourself, it keeps your version and tells you.
 
 ## Getting help
 
 Ask for help straight away if the AI did something you didn't expect, or if you think a password or personal data was exposed. Reporting it is always the right call.
 
 - **Contact:** add your team's channel or email here
+- **All skills and rules:** [`SKILLS.md`](SKILLS.md)
+- **Suggest or add a skill:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - **Technical reference** (commands, authoring rules, how the tools work): [`docs/REFERENCE.md`](docs/REFERENCE.md)
 - **Test results** behind the recommendations: [`ai-skills-test/results/RESULTS.md`](ai-skills-test/results/RESULTS.md)
 - **Your setup summary:** the `ai-safety-setup` folder in your home folder

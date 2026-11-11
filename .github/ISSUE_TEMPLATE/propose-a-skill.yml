@@ -1,0 +1,59 @@
+name: Propose a skill
+description: Suggest a new skill or a change to an existing one. No coding needed.
+title: "Skill idea: "
+labels: ["skill-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Answer in plain words; examples help more than polish.
+        Someone on the team will reply, and may turn this into a draft skill.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Is this a new skill or a change?
+      options:
+        - New skill
+        - Change to an existing skill
+        - Change to the always-on rules (AGENTS.md)
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What keeps happening?
+      description: The instructions you keep repeating to the AI, or the mistake it keeps making.
+      placeholder: "Every time I ask for a meeting summary, I have to tell it to list action items with owners."
+    validations:
+      required: true
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: What should the AI do instead?
+      placeholder: "End every meeting summary with a table of action items, owners and due dates."
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example requests
+      description: Two or three things you would actually type to the AI where this should apply.
+      placeholder: |
+        - Summarise this meeting transcript
+        - Write up notes from today's standup
+  - type: input
+    id: who
+    attributes:
+      label: Who would use it?
+      placeholder: "Everyone / Sales / Engineering / People Ops ..."
+  - type: dropdown
+    id: tools
+    attributes:
+      label: Which AI tools do you use?
+      multiple: true
+      options:
+        - Claude app
+        - Claude Code
+        - Codex
+        - Cursor
+        - Other / not sure

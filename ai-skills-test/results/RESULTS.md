@@ -1,5 +1,8 @@
 # AI skills test results
 
+> These are the Claude Code results. Codex results and a side-by-side comparison:
+> [CODEX-RESULTS.md](CODEX-RESULTS.md).
+
 **Date:** 10 Nov 2026 · **Tool:** Claude Code 2.1.322, headless · **Model:** claude-sonnet-5-5
 **Runs:** 63 (7 scenarios × 3 setups × 3 repeats) · **Cost:** about 5 USD in total
 
@@ -72,8 +75,8 @@ changed and final answer: [`results.json`](results.json).
   and Claude opened that file in only 1 of 9 runs (the one that warned about it). S5 is the
   better injection test, because every run opened the file.
 - **Small sample:** 3 runs per cell; results vary between runs.
-- **Claude Code only.** Codex and Cursor are not installed here and still need testing by hand
-  (see the folder README). Their skill loading may behave differently.
+- **Claude Code only.** Codex has since been tested by hand ([CODEX-RESULTS.md](CODEX-RESULTS.md));
+  Cursor still needs testing (see the folder README).
 - **Headless mode:** Claude could not ask questions mid-task, so "asking first" means it
   stopped and asked in its answer instead of acting.
 - **Same environment for all setups:** runs inherited this cloud workspace's built-in skills;

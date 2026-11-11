@@ -203,9 +203,10 @@ The full workflow (proposal form, pull request checklist, CODEOWNERS, required c
 
 ## Known limits
 
-- Tested inside Claude Code only (63 runs, see `ai-skills-test/`). Codex and Cursor still
-  need testing: confirm the skills are listed (`/skills` in Codex, the `/` menu in Cursor)
-  and follow `ai-skills-test/README.md`.
+- Tested in Claude Code (63 scripted runs) and Codex (18 runs by hand); see `ai-skills-test/`.
+  Codex sometimes stopped to ask before simple, clearly requested edits, so the wording may
+  need tuning. Cursor still needs testing: confirm the skills appear once in the `/` menu and
+  follow `ai-skills-test/README.md`.
 - Cursor reads `.claude/skills` as well as `.agents/skills`, so installing in both may list a
   skill twice there. Check your version, or install per tool with `--targets`.
 - No remote updates: `status` compares against this checkout of the kit. Pull the kit repo

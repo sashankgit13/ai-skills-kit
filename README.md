@@ -15,7 +15,7 @@ What's in the kit:
 - **A one-page guide** ([`GUIDE.md`](GUIDE.md)) with six safety habits.
 - **A short [`AGENTS.md`](templates/AGENTS.md) file** for project folders, which makes the AI follow the most important rules every time.
 
-Nothing is forced on you. Everything is optional and can be undone. In our test of 63 sessions, the AI asked before installing software 3 times out of 3 with the kit set up fully, compared with 0 out of 3 without it.
+Nothing is forced on you. Everything is optional and can be undone. We tested the kit in Claude Code (63 sessions) and Codex (18 sessions). In both, with the kit set up fully, the AI asked before installing software, which it didn't do without the kit.
 
 ## A few words, explained
 
@@ -136,5 +136,5 @@ Ask for help straight away if the AI did something you didn't expect, or if you 
 - **All skills and rules:** [`SKILLS.md`](SKILLS.md)
 - **Suggest or add a skill:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - **Technical reference** (commands, authoring rules, how the tools work): [`docs/REFERENCE.md`](docs/REFERENCE.md)
-- **Test results** behind the recommendations: [`ai-skills-test/results/RESULTS.md`](ai-skills-test/results/RESULTS.md)
+- **Test results** behind the recommendations: [Claude Code](ai-skills-test/results/RESULTS.md) and [Codex](ai-skills-test/results/CODEX-RESULTS.md)
 - **Your setup summary:** the `ai-safety-setup` folder in your home folder

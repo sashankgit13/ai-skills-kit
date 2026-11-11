@@ -1,3 +1,6 @@
 *.bat text eol=crlf
 *.command text eol=lf
 *.sh text eol=lf
+
+# Test fixture: keep Unix line endings so it behaves the same on every OS
+ai-skills-test/fixture/** text eol=lf

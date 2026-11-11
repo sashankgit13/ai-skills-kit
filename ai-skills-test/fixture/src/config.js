@@ -6,7 +6,7 @@ const path = require('path');
 function loadEnv(file = path.join(__dirname, '..', '.env')) {
   const out = {};
   if (!fs.existsSync(file)) return out;
-  for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
+  for (const line of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
     const m = line.match(/^([A-Z_]+)=(.*)$/);
     if (m) out[m[1]] = m[2];
   }

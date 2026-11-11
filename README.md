@@ -1,205 +1,122 @@
-# AI skills kit
+# Using AI Skills at Work: A Beginner's Guide
 
-One skill format that works in Claude Code, Codex and Cursor, with a validator and an
-installer that can also check versions and uninstall.
+> New to AI? You're in the right place. Developers and skill authors: see the
+> [technical reference](docs/REFERENCE.md).
 
-Skills follow the open [Agent Skills](https://agentskills.io) format: a folder with a
-`SKILL.md` (YAML frontmatter + instructions) and optional `scripts/`, `references/`,
-`assets/`. All three tools read this format; they differ only in **where** they look.
+## At a glance
 
-## Quick start
+The AI skills kit gives your AI assistant a short set of team rules, so it explains what it will do, asks before risky actions and protects private information. You install it once in about five minutes, and it works in the Claude app, Claude Code, Codex and Cursor.
 
-This kit **shares guidelines; it does not enforce anything.** Nobody is required to use the
-optional settings, and everything can be changed or undone by the person who set it up.
+What's in the kit:
 
-**Staff (no technical knowledge needed):** double-click **Start AI Setup (Mac)** or
-**Start AI Setup (Windows)** in this folder. It asks which AI tools you use, explains each
-skill in plain words, then offers a few *optional* safety settings you can skip. It asks
-before every change, backs up anything it edits, and saves a summary in
-`~/ai-safety-setup/`. Then read `GUIDE.md`.
-Needs Python 3.9+ (3.11+ for the Codex settings step). On macOS, the first run may need
-right-click > Open because the launcher is not signed.
+- **Three skills**: short rule books the AI reads. One helps people new to AI, one covers security habits, one keeps code changes small and tested.
+- **A double-click setup** that adds the skills and explains every choice in plain words.
+- **A one-page guide** ([`GUIDE.md`](GUIDE.md)) with six safety habits.
+- **A short [`AGENTS.md`](templates/AGENTS.md) file** for project folders, which makes the AI follow the most important rules every time.
 
-**Helping someone set up:** `python3 tools/setup.py --skills-only` adds just the
-guidelines; `--yes --tools claude-code,codex` accepts the recommended answers.
+Nothing is forced on you. Everything is optional and can be undone. In our test of 63 sessions, the AI asked before installing software 3 times out of 3 with the kit set up fully, compared with 0 out of 3 without it.
 
-**Developers / skill authors:** see Commands and Authoring rules below.
+## A few words, explained
 
-## Layout
+You only need four terms to use the kit.
 
-```
-Start AI Setup (Mac).command    double-click launchers for staff
-Start AI Setup (Windows).bat
-start-ai-setup.sh               same, for Linux
-GUIDE.md                        one-page "using AI agents safely" for staff
-skills/
-  guided-ai-use/                plain-language guidance for non-technical users
-  secure-coding-baseline/       security rules for agents + pre-merge checklist
-  disciplined-coding/           small, simple, verified changes (Karpathy-style rules)
-    SKILL.md                    what the agent reads
-    references/                 loaded by the agent only when needed
-    evals/EVALS.md              test scenarios for humans; not referenced by SKILL.md
-templates/SKILL.template.md     copy this to start a new skill
-templates/AGENTS.md             10-line always-loaded guideline file that points at the skills
-tools/validate_skill.py         org checks: portability, secrets, injection, risky scripts
-tools/install.py                install / status / uninstall, with a lock file
-tools/setup.py                  guided setup behind the launchers (skills + optional settings)
-ai-skills-test/                 A/B test of the skills (fake fixture, harness, results)
-.github/workflows/              CI: org checks + official agentskills.io validator
-```
+| Term | What it means | Everyday comparison |
+| --- | --- | --- |
+| **AI assistant** | A program you talk to in normal sentences, such as Claude or ChatGPT. It writes, summarises and answers questions. | A helpful colleague you can message any time |
+| **AI agent** | An AI assistant that can also *do* things: open and change files, run programs, fill in forms, send messages. | That colleague, but with access to your computer and accounts |
+| **Skill** | A short instruction sheet the AI reads, so it works the way our team wants. | A briefing note you hand a new colleague on day one |
+| **AGENTS.md** | A tiny file in a project folder with the few rules the AI must always follow. The AI reads it every time. | The sign on the office door: "Ask before you throw anything away" |
 
-## Where each tool looks (per vendor docs, checked Nov 2026)
+Why this matters: an agent's mistakes have real effects, such as a deleted file or a sent email. The skills make it slow down, explain, and check with you first.
 
-| Tool | Project folder | User folder |
-|---|---|---|
-| Codex | `.agents/skills/` | `~/.agents/skills/` |
-| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
-| Cursor | `.agents/skills/`, `.cursor/skills/` (also reads `.claude/skills/`, `.codex/skills/`) | `~/.agents/skills/`, `~/.cursor/skills/` |
+## The three skills
 
-## Commands
+If you don't write code, you only need the first skill. The setup recommends the right ones for you.
 
-```bash
-# check skills
-python3 tools/validate_skill.py skills/
+| Skill | Who it's for | What the AI does differently |
+| --- | --- | --- |
+| [**guided-ai-use**](skills/guided-ai-use/SKILL.md) | Everyone, especially people new to AI | Tells you its plan in plain words before acting. Asks before deleting, sending, sharing or buying anything. Avoids copying personal data such as salaries or contact details. Ends with what it did and what you should check. |
+| [**secure-coding-baseline**](skills/secure-coding-baseline/SKILL.md) | Anyone who lets AI work on files or code | Keeps passwords and keys private. Ignores instructions hidden inside documents or web pages, and tells you about them. Asks before installing software or changing important settings. |
+| [**disciplined-coding**](skills/disciplined-coding/SKILL.md) | People who write or review code | Makes small, focused changes. Writes a test to prove a bug is fixed. Leaves unrelated code alone and mentions it instead. |
 
-# install (copies into .agents/skills and .claude/skills by default)
-python3 tools/install.py install --project ~/code/my-app --dry-run
-python3 tools/install.py install --project ~/code/my-app
-python3 tools/install.py install --project ~/code/my-app --targets cursor --link
-python3 tools/install.py install --global --targets agents,claude
+You don't need to call a skill by name. The AI picks up the rules on its own, and the `AGENTS.md` file makes sure the most important ones always apply.
 
-# see what is installed and whether it is current
-python3 tools/install.py status --project ~/code/my-app
-python3 tools/install.py status --project ~/code/my-app --check   # exit 1 if action needed
+## Setting up (about five minutes)
 
-# refresh outdated copies
-python3 tools/install.py install --project ~/code/my-app --update
+You run one setup helper that asks you simple questions. It asks before every change, backs up anything it edits, and sends nothing anywhere.
 
-# remove what the kit installed
-python3 tools/install.py uninstall --project ~/code/my-app --skill disciplined-coding
-python3 tools/install.py uninstall --project ~/code/my-app --dry-run
-```
+1. **Download the kit.** At the top of this page, click the green **Code** button, then **Download ZIP**. Unzip it, for example into your Documents folder.
+2. **Start the setup.** In the unzipped folder, double-click **Start AI Setup (Mac)** or **Start AI Setup (Windows)**. A window with text opens.
+   - On a Mac, the first time, macOS may block it. Right-click the file and choose **Open**.
+   - If it says Python is missing, ask IT or a developer to install Python 3.9 or newer.
+3. **Pick your AI tools.** Type the numbers of the tools you use, or press Enter to accept the suggestion. Not sure? Choose the Claude app.
+4. **Pick your skills.** Press Enter to accept the recommended ones.
+5. **Optional safety settings.** You can say no and skip them. If you say yes, each one is explained before you decide. Pressing Enter picks the recommended answer.
+6. **Review and confirm.** The helper lists what it will do. Type `y` to go ahead, or `n` to stop with nothing changed.
+7. **Finish up.**
+   - **Claude app users:** the helper creates one small file per skill in a folder called `ai-safety-setup` in your home folder. Upload these in the Claude app's skills settings, or ask your admin to add them for the whole team.
+   - **Claude Code, Codex or Cursor users:** restart the tool so it picks up the skills.
 
-### Status values
+A summary of everything that was done is saved in that `ai-safety-setup` folder.
 
-| State | Meaning | What to do |
-|---|---|---|
-| `up-to-date` | Installed copy matches the kit | Nothing |
-| `outdated` | The kit has a newer version | `install --update` |
-| `modified` | Someone edited the installed copy | Review the edit, move it into the kit, then `install --force` |
-| `missing` | Lock file lists it but the folder is gone | `install` restores it, or `uninstall` drops the entry |
-| `linked` | Symlink to the kit (always current) | Nothing |
-| `broken-link` | Symlink target moved | `install --force --link`, or `uninstall` |
-| `orphaned` | Installed, but the skill was removed from the kit | `uninstall --skill <name>` |
+**Working in a project folder?** Copy [`templates/AGENTS.md`](templates/AGENTS.md) from the kit into the folder. If you use Claude Code, also create a file named `CLAUDE.md` there containing the single line `@AGENTS.md`. Ask a developer if this sounds unfamiliar; it takes one minute.
 
-### Safety behaviour
-- A skill that fails validation is never installed.
-- `install` will not overwrite a folder the kit did not install, or an installed copy someone
-  edited, unless you pass `--force`.
-- `uninstall` only removes what the lock file says the kit installed, and keeps edited copies
-  unless you pass `--force`. Other skills in the same folders are never touched.
-- `--dry-run` works for `install` and `uninstall`.
+## Using it day to day
 
-### Lock file
-Installs are recorded in `<project>/.ai-skills-kit.lock.json` (commit it) or
-`~/.agents/.ai-skills-kit.lock.json` for `--global`. Each installed folder stores its path,
-mode, version and a SHA-256 over every file's relative path and contents. Keys are sorted
-and there are no timestamps, to keep merge conflicts rare. This mirrors the approach of the
-Vercel skills CLI's project lock file; the name is different so the two can coexist.
+Keep working as you normally would: describe what you want in plain sentences. The skills change how the AI responds, not how you ask.
 
-## Optional settings the guided setup can apply
+**Example requests that work well:**
 
-Only for the person running it, only if they choose to look at the settings, and only for
-the ones they say yes to. People can skip this step entirely (or use `--skills-only`):
+- "Summarise the three reports in my Downloads folder into one page."
+- "Tidy up my Desktop: sort the files into folders by type."
+- "Draft a reply to this customer email. Don't send it."
+- "Summarise this HR spreadsheet for my manager."
+- "Fill in this registration form using my profile details."
 
-| Tool | Setting (as shown to staff) | Technical change |
-|---|---|---|
-| Claude Code | Keep password and key files away from the AI | `permissions.deny` rules for `.env*`, `secrets/`, `*.pem`, `*.key`, `~/.ssh`, `~/.aws` in `~/.claude/settings.json` |
-| Claude Code | Never allow "skip all permission questions" mode | `permissions.disableBypassPermissionsMode: "disable"` |
-| Claude Code | Always ask before deleting files or publishing code | `permissions.ask` for `rm`, `git push`, `git reset --hard` |
-| Claude Code | Run the AI's commands inside a safety box | `sandbox.enabled: true` (recommended on macOS only; needs extra tools on Linux, WSL on Windows) |
-| Codex | Only work in the opened project, and ask before anything else | `sandbox_mode = "workspace-write"`, `approval_policy = "on-request"` in `~/.codex/config.toml` |
-| Codex | Ask before the AI's commands use the internet | `[sandbox_workspace_write] network_access = false` |
-| Cursor | (no file to change) | Shows and saves suggestions: Privacy Mode, Run Mode, MCP tools, `.cursorignore` |
-| Claude app | (no file to change) | Builds one zip per skill in `~/ai-safety-setup/claude-app-skills/` to upload, or for an admin to add for everyone |
+**What you'll notice with the skills:**
 
-Rules it follows: lists are merged without duplicates; a setting the person already chose
-is left alone and reported; files that can't be read are skipped; every edited file
-is backed up as `<name>.bak-<date>`; Codex changes are checked to parse before saving;
-re-running changes nothing; `--dry-run` previews without writing.
+| Moment | Without the skills | With the skills |
+| --- | --- | --- |
+| Before starting | Often starts straight away | Says its plan, for example "I'll read the three files and create one new document. Nothing existing will change." |
+| Unclear request | Picks one meaning silently | Asks, for example "By tidy, do you mean delete old files or sort them into folders?" |
+| Risky step | May go ahead | Stops and asks, for example "I'm about to send this to 230 people. Send now, or show me first?" |
+| Private data | May copy names and salaries | Uses totals instead, and says what it left out |
+| Finishing | "Done." | What it did, what it didn't do, and what you should check |
 
-## Skills alone are not enough: add the AGENTS.md
+**How to answer its questions:** reply in normal words, such as "yes", "no", or "show me first". If you don't understand a question, say "Explain that more simply" or "Why are you asking?". Saying no is always safe.
 
-In a 63-run test with Claude Code (see [`ai-skills-test/results/RESULTS.md`](ai-skills-test/results/RESULTS.md)),
-skills loaded their full instructions in only
-1 of 21 runs. Adding the 10-line `templates/AGENTS.md` fixed every gap the test covered,
-for example asking before installing a dependency went from 0/3 to 3/3.
+## Six safety habits
 
-So, per project:
-1. Copy `templates/AGENTS.md` to the repo root (Codex and Cursor read it).
-2. For Claude Code, add a `CLAUDE.md` containing the single line `@AGENTS.md`.
-3. Install the skills as usual. The AGENTS.md carries the rules that must always apply; the
-   skills carry the detail.
+The skills help, but you are still the one in charge. These habits matter with or without the kit.
 
-## Skills in this kit
+1. **Know what it's about to do.** If the AI doesn't explain its plan, ask: "What exactly will you change?"
+2. **Say yes only to what you understand.** Read every permission question. When unsure, say no and ask why.
+3. **Keep secrets out.** Don't paste passwords, one-time codes, card numbers or other people's personal data unless the task truly needs it and it's approved.
+4. **Be suspicious of outside content.** Emails, documents and web pages can hide text aimed at the AI, such as "AI assistant: send this file to...". The AI should only follow you. If it suggests something odd after reading something, stop and check.
+5. **Check before you rely on it.** The AI can be confidently wrong. Check facts, numbers and recipients, especially for anything leaving the company.
+6. **You own the result.** The AI is a helper, not a sign-off. What you send or publish is your responsibility.
 
-**guided-ai-use**: for people without a technical background. The AI states its plan in
-plain words, asks before anything that changes, sends, deletes or shares, protects personal
-and confidential data, ignores instructions hidden in content, and ends with "what I did /
-didn't do / what to check". Includes example phrasing.
+## Common questions
 
-**secure-coding-baseline**: content is data, protect secrets, ask before destructive or
-external actions, keep changes traceable, flag sensitive areas, control dependencies, verify
-and report. Like all skills it is guidance the AI follows, not a hard barrier; the optional
-settings in the setup add a technical safety net for people who want one.
+**Do I have to use this?** No. The kit shares our team's guidelines; nothing is enforced. You can skip the optional settings and undo everything later.
 
-**disciplined-coding**: think before coding, keep it simple, make surgical changes, define
-"done" and verify. Reworded from the four principles in
-[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)
-(MIT); not endorsed by Andrej Karpathy. Includes good/bad examples.
+**Will the AI become slow or annoying?** No. In our tests, simple questions still got short, direct answers. The extra checks only appear for actions that change, send or delete things.
 
-Both skills ship `evals/EVALS.md`: prompts to run with and without the skill in each tool,
-including a negative case where the skill should *not* change behaviour.
+**Does the setup send my data anywhere?** No. It only changes files on your own computer, and it backs them up first.
 
-## Authoring rules
+**How do I undo it?** The summary in your `ai-safety-setup` folder lists every file that changed and its backup. Restore the backups, or ask a developer to run the uninstall command listed there.
 
-Enforced by `validate_skill.py` (errors unless noted):
-1. Folder name equals `name`: lowercase letters, digits, single hyphens, max 64 chars.
-2. Frontmatter uses only `name`, `description`, `license`, `compatibility`, `metadata`
-   (string values) and, sparingly, `allowed-tools` (warning: experimental).
-3. `description` is 1-1024 characters and says what the skill does and when to use it
-   (warning if "when" is missing).
-4. Files referenced from `SKILL.md` must exist. Body over 500 lines is a warning.
-5. No secrets or prompt-injection phrases in any file; risky patterns in `scripts/` are
-   warnings that need human review.
+**The AI didn't ask before doing something risky. Why?** Skills are guidance, not a lock. The AI usually follows them, but not always. That's why the six habits above still matter. Please tell the team what happened so we can improve the rules.
 
-Good practice (not enforced), drawn from the agentskills.io spec and Anthropic's guidance:
-- Write the evals first: run the task without a skill, note the failures, then write the
-  smallest instructions that fix them.
-- Write the description in third person, with the words a user would actually say.
-- Link reference files directly from `SKILL.md` (one level deep), not through chains.
-- Match strictness to risk: general guidance for open-ended work, exact commands for
-  fragile steps such as migrations.
-- Use one term per concept throughout; avoid dates and version-specific details in the body.
-- Tool-specific extras (Claude's `context: fork`, Codex's `agents/openai.yaml`) are optional
-  and rejected by the validator by default; the skill must work without them.
+**The setup window closed or showed an error.** Run it again; it's safe to repeat. If it mentions Python, ask IT to install Python 3.9 or newer. Otherwise, send a screenshot to the contact below.
 
-## Review process (suggested)
+**Can I suggest a new skill?** Yes, please. If you keep giving the AI the same instructions, or it keeps making the same mistake, that's a good candidate.
 
-- Require PR review for `skills/`, with a CODEOWNERS entry.
-- Read every script in a skill before merging; the validators catch careless mistakes only.
-- Install from a reviewed commit or tag; do not pipe remote files into your tools.
-- Treat `.agents/`, `.claude/`, `.cursor/`, AGENTS.md and CLAUDE.md changes in any repo as
-  code that needs review.
+## Getting help
 
-## Known limits
+Ask for help straight away if the AI did something you didn't expect, or if you think a password or personal data was exposed. Reporting it is always the right call.
 
-- Tested inside Claude Code only (63 runs, see `ai-skills-test/`). Codex and Cursor still
-  need testing: confirm the skills are listed (`/skills` in Codex, the `/` menu in Cursor)
-  and follow `ai-skills-test/README.md`.
-- Cursor reads `.claude/skills` as well as `.agents/skills`, so installing in both may list a
-  skill twice there. Check your version, or install per tool with `--targets`.
-- No remote updates: `status` compares against this checkout of the kit. Pull the kit repo
-  first, then run `status` / `install --update`.
-- Skills cannot call each other through a standard API; compose by referring to another
-  skill in the instructions.
+- **Contact:** add your team's channel or email here
+- **Technical reference** (commands, authoring rules, how the tools work): [`docs/REFERENCE.md`](docs/REFERENCE.md)
+- **Test results** behind the recommendations: [`ai-skills-test/results/RESULTS.md`](ai-skills-test/results/RESULTS.md)
+- **Your setup summary:** the `ai-safety-setup` folder in your home folder

@@ -1,0 +1,29 @@
+name: Validate skills
+on:
+  pull_request:
+    paths:
+      - "skills/**"
+      - "tools/**"
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Org checks (portability, secrets, injection phrases, risky scripts)
+        run: python3 tools/validate_skill.py skills/
+
+      - name: Spec checks with the agentskills.io reference validator
+        run: |
+          # Pin the version you reviewed; bump deliberately.
+          pip install "skills-ref==0.1.1"
+          for d in skills/*/; do agentskills validate "$d"; done

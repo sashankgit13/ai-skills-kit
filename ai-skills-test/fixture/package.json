@@ -1,0 +1,9 @@
+{
+  "name": "payroll-fixture",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Small fake payroll module used only to test AI agent skills.",
+  "scripts": {
+    "test": "node --test"
+  }
+}
